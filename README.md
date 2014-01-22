@@ -2,6 +2,12 @@
  
 ##Learning Competencies 
 
+* Use Active Record Migrations to create a database
+* Use Active Record Queries to query a database
+* Infer the behavior and structure of code variables, methods, and objects accessed from test code
+* Build test methods with descriptive output and clear indicators of passing tests
+* Work with testing libraries like Rspec
+
 ##Summary 
 
 #### A Note About This Unit
@@ -10,7 +16,7 @@ Please be aware that none of the challenges in this unit depend-on or use all of
 
 #### Overview
 
-You probably remember the [Student Schema] (https://github.com/sea-lions-2014/database-drill-student-roster-challenge) challenge from before. In case you don't, let's refresh your memory:
+You probably remember the [Student Schema](https://github.com/sea-lions-2014/database-drill-student-roster-challenge) challenge from before. In case you don't, let's refresh your memory:
 
 <pre>
 +------------+
