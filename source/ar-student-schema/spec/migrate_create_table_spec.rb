@@ -8,7 +8,7 @@ describe "create table with correct schema" do
   end
 
   it "should have a Students table" do
-    ActiveRecord::Base.connection.table_exists?(:students).should be_true
+    ActiveRecord::Base.connection.table_exists?(:students).should be_truthy
   end
 
   it "should have the right columns and types" do
@@ -20,7 +20,7 @@ describe "create table with correct schema" do
     }
 
     ActiveRecord::Base.connection.columns(:students).each do |col|
-      expected[col.type].include?(col.name).should be_true
+      expected[col.type].include?(col.name).should be_truthy
     end
   end
 end
