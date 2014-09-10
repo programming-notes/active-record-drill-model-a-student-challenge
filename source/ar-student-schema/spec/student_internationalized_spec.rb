@@ -1,5 +1,4 @@
-require 'rspec'
-require_relative '../app/models/student'
+require_relative '../app.rb'
 
 
 describe Student, "internationalized" do
