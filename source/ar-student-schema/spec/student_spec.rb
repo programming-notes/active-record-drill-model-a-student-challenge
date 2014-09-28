@@ -5,7 +5,9 @@ require_relative '../app.rb'
 describe Student, "#name and #age" do
 
   before(:all) do
-    raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs" unless expect(ActiveRecord::Base.connection.table_exists?(:students)).to be_truthy
+    unless ActiveRecord::Base.connection.table_exists?(:students)
+      raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs"
+    end
     Student.delete_all
 
     @student = Student.new
@@ -36,7 +38,9 @@ end
 describe Student, "validations" do
 
   before(:all) do
-    raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs" unless expect(ActiveRecord::Base.connection.table_exists?(:students)).to be_truthy
+    unless ActiveRecord::Base.connection.table_exists?(:students)
+      raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs"
+    end
     Student.delete_all
   end
 
@@ -89,7 +93,9 @@ end
 describe Student, "advanced validations" do
 
   before(:all) do
-    raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs" unless expect(ActiveRecord::Base.connection.table_exists?(:students)).to be_truthy
+    unless ActiveRecord::Base.connection.table_exists?(:students)
+      raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs"
+    end
     Student.delete_all
   end
 
