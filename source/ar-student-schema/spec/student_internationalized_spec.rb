@@ -1,20 +1,19 @@
-require 'rspec'
-require_relative '../app/models/student'
+require_relative '../app.rb'
 
 
 describe Student, "internationalized" do
 
-  it "should have a name attribute" do
+  it "has a name attribute" do
     student = Student.all.first
     student.name = "John Doe"
     student.save!
     student = Student.find(student.id)
-    student.name.should == "John Doe"
+    expect(student.name).to eq("John Doe")
   end
 
-  it "should have an address field" do
+  it "has an address field" do
     student = Student.new
-    lambda do
+    expect(-> {
       student.update_attributes(
         :name => "Jane Doe",
         :gender => "female",
@@ -23,11 +22,11 @@ describe Student, "internationalized" do
         :phone => "510-555-1212",
         :address => "123 4th St New York NY 10101"
       )
-    end.should_not raise_error
+    }).to_not raise_error
   end
 
-  it "should contain correct sample data" do
-    Student.where("name = ?", "Karim Bishay").count.should be >= 1
+  it "contains correct sample data" do
+    expect(Student.where("name = ?", "Karim Bishay").count).to be >= 1
   end
 
 end
