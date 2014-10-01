@@ -49,6 +49,8 @@ If you're unfamiliar with the [object-relational mapping (ORM)](http://en.wikipe
 
 In the `db/migrate/20121011144238_create_students.rb` file, you should use ActiveRecord migrations to implement the `change` method. This will allow us to do all of our database schema modifications completely from within code (rather than using SQLite and SQL Designer).  Use the Railsguides [Migration Overview](http://guides.rubyonrails.org/v3.2.13/migrations.html) to get used to the syntax.
 
+Take a minute to look at how the filename is formatted with the numbers then the snake_cased name. Compare this to the class defined within this file. What is the relationship between the filename and the class name? It turns out this (and other naming conventions) is important to ActiveRecord.
+
 #### Test Your Code
 
 Run your migrations using the following command:
