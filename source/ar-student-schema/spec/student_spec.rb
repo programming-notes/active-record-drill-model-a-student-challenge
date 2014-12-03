@@ -35,7 +35,7 @@ describe Student, "#name and #age" do
 
 end
 
-describe Student, "validations" do
+describe Student, "basic validations" do
 
   before(:all) do
     unless ActiveRecord::Base.connection.table_exists?(:students)
