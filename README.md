@@ -104,7 +104,7 @@ A great resource for validations is the Railsguides [Validation Overview](http:/
 Before submitting this challenge, you must test your code by using the following command:
 
 ```bash
-$ rspec spec/student_spec.rb -e "validations"
+$ rspec spec/student_spec.rb -e "basic validations"
 ```
 
 All tests should pass.
