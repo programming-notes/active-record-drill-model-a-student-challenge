@@ -1,40 +1,35 @@
 # Db Drill AR Student Schema 
  
-##Learning Competencies 
-
-* Use Active Record Migrations to create a database
-* Use Active Record Queries to query a database
-* Infer the behavior and structure of code variables, methods, and objects accessed from test code
-* Build test methods with descriptive output and clear indicators of passing tests
-* Work with testing libraries like Rspec
-
 ##Summary 
+We're going to continue working with Active Record. Part of this challenge will review the relationship between the tables in our database and our Ruby classes.  We'll also work with *virtual attributes*.
 
-#### A Note About This Unit
 
-Please be aware that none of the challenges in this unit depend-on or use all of Rails. They *do*, however, use ActiveRecord, which is a part of Rails. If you are familiar with Rails, please don't expect all of the typical Rails `rake` commands to work exactly as they do in Rails. This unit covers just a subset.
+| id | first_name | last_name | birthday | phone | created_at | updated_at |
+| --- | --- | --- | --- | --- | --- | --- |
+|1 | Hubert | Fried | 1980-04-20 | 419-531-8916 | 2015-03-27 12:00:00 | 2015-03-27 12:00:00 |
+|2 | Amie | Granger | 1980-03-01 | 312-456-9827 | 2015-03-29 13:30:00 | 2015-03-30 17:45:00 |
 
-#### Overview
+*Figure 1*.  Depiction of a students table.
 
-You probably remember the [Student Schema](https://github.com/sea-lions-2014/database-drill-student-roster-challenge) challenge from before. In case you don't, let's refresh your memory:
+We'll be working with student data in this challenge.  We'll start by setting up a database with a `students` table (see Figure 1) and a `Student` model.  Once the table is set up, we'll seed it with some data.  Then, we'll modify the table while preserving its data.  And finally, we'll add some functionality to the `Student` model.
 
-<pre>
-+------------+
-| students   |
-+------------+
-| id         |
-| first_name |
-| last_name  |
-| gender     |
-| birthday   |
-| email      |
-| phone      |
-+------------+
-</pre>
+### Virtual Attributes
+```ruby
+hubert = Student.find(1)
+hubert.first_name
+# => "Hubert"
+hubert.last_name
+# => "Fried"
+```
+*Figure 2. Exploring some of the attributes of a student object.
 
-This challenge will get you familiar with the basics of using the ActiveRecord [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping) feature that is built-in to Rails, including using [migrations](http://guides.rubyonrails.org/v3.2.13/migrations.html) and [validations](http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html).
+Active Record models derive their attributes from the tables that store their data.  In the case of the `Student` class we'll be working with, it's attributes will come from the columns in the students table (see Figure 2). However, sometimes it would be beneficial for our objects to have attributes that are not backed up by the database.  In the case of our students, we might want them to have a full name in addition to having a first name and a last name.  Or, as we can see in Figure 1, our students will have a birthday attribute, but we might also want them to have an age.
 
-If you're unfamiliar with the [object-relational mapping (ORM)](http://en.wikipedia.org/wiki/Objectrelational_mapping), or if you've never looked at ActiveRecord before, it's probably worth reading the [Ruby on Rails ActiveRecord Guide](http://guides.rubyonrails.org/active_record_basics.html).
+There's nothing really special about *virtual attributes*.  They are simply behaviors that our objects have.  To access them, we write *getter methods*, such as `#full_name` or `#age`.  They differ from normal attributes in that their values are not persisted in the database. Rather, they are derived from values in the database.  For example, getting a student's full name requires combining the first and last names.  Calculating the age requires some math using the student's birthday.  Setting virtual attributes is less straight forward, but it can often be done.  And to do so, we write *setter methods*, such as `#full_name=`. 
+
+We'll explore working with virtual attributes as we work through this challenge. 
+
+
 
 #### Before You Begin
 
