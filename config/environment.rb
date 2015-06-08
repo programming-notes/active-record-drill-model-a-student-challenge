@@ -20,6 +20,13 @@ model_files.each do |model_file|
   autoload ActiveSupport::Inflector.camelize(filename), model_file
 end
 
+# Require the files in APP_ROOT/lib
+lib_files = Dir[APP_ROOT.join('lib', '*.rb')]
+
+lib_files.each do |model_file|
+  require model_file
+end
+
 
 # Set up ActiveRecord::Base to log its activity
 ActiveRecord::Base.logger = Logger.new(STDOUT)
