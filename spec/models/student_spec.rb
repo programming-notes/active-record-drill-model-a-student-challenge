@@ -1,6 +1,4 @@
-require 'date'
-require_relative '../app.rb'
-
+require_relative '../spec_helper'
 
 describe Student, "#name and #age" do
 

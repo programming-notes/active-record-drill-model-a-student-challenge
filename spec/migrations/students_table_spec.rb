@@ -1,5 +1,4 @@
-require_relative '../app.rb'
-
+require_relative '../spec_helper'
 
 describe "create table with correct schema" do
   before(:all) do
@@ -11,10 +10,10 @@ describe "create table with correct schema" do
   end
 
   it "has the right columns and types" do
-    expected = {
-      :integer => ["id"],
-      :string => ["first_name", "last_name", "gender", "email", "phone"],
-      :date => ["birthday"],
+    expected_column_types_and_columns = {
+      :integer  => ["id"],
+      :string   => ["first_name", "last_name", "phone"],
+      :date     => ["birthday"],
       :datetime => ["created_at", "updated_at"]
     }
 

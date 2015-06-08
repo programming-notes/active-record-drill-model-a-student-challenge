@@ -11,7 +11,7 @@ We're going to continue working with Active Record. Part of this challenge will 
 
 *Figure 1*.  Depiction of a students table.
 
-We'll be working with student data in this challenge.  We'll start by setting up a database with a `students` table (see Figure 1) and a `Student` model.  Once the table is set up, we'll seed it with some data.  Then, we'll modify the table while preserving its data.  And finally, we'll add some functionality to the `Student` model.
+We'll be working with student data in this challenge.  We'll start by setting up a database with a `students` table (see Figure 1) and a `Student` model.  Once the table is set up, we'll seed it with some data.  And finally, we'll add some functionality to the `Student` model.
 
 ### Virtual Attributes
 ```ruby
