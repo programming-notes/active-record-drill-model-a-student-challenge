@@ -3,11 +3,6 @@ require_relative '../spec_helper'
 describe Student, "#name and #age" do
 
   before(:all) do
-    unless ActiveRecord::Base.connection.table_exists?(:students)
-      raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs"
-    end
-    Student.delete_all
-
     @student = Student.new
     @student.assign_attributes(
       :first_name => "Happy",
@@ -34,13 +29,6 @@ describe Student, "#name and #age" do
 end
 
 describe Student, "basic validations" do
-
-  before(:all) do
-    unless ActiveRecord::Base.connection.table_exists?(:students)
-      raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs"
-    end
-    Student.delete_all
-  end
 
   before(:each) do
     @student = Student.new
@@ -89,13 +77,6 @@ describe Student, "basic validations" do
 end
 
 describe Student, "advanced validations" do
-
-  before(:all) do
-    unless ActiveRecord::Base.connection.table_exists?(:students)
-      raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs"
-    end
-    Student.delete_all
-  end
 
   before(:each) do
     @student = Student.new

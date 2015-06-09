@@ -1,10 +1,6 @@
 require_relative '../spec_helper'
 
 describe "create table with correct schema" do
-  before(:all) do
-    raise RuntimeError, "be sure to run 'rake db:migrate' before running these specs" unless ActiveRecord::Migrator.current_version > 0
-  end
-
   it "has a Students table" do
     expect(ActiveRecord::Base.connection.table_exists?(:students)).to be_truthy
   end
