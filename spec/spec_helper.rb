@@ -1,3 +1,5 @@
+ENV['AR_ENV'] = 'test'
+
 require_relative '../config/environment'
 
 require 'database_cleaner'

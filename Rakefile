@@ -26,13 +26,17 @@ end
 namespace :db do
   desc "Create the database"
   task :create do
-    touch "db/db-drill-ar-student-schema-database.sqlite3"
+    puts "Creating development database and test databases, if they don't exist ..."
+    touch "db/database.sqlite3"
+    touch "db/test-database.sqlite3"
   end
 
 
   desc "Drop the database"
   task :drop do
-    rm_f "db/db-drill-ar-student-schema-database.sqlite3"
+    puts "Dropping development and test databases..."
+    rm_f "db/database.sqlite3"
+    rm_f "db/test-database.sqlite3"
   end
 
 
@@ -45,6 +49,10 @@ namespace :db do
     migrations_directory = "#{APP_ROOT}db/migrate"
     ActiveRecord::Migrator.migrations_paths << migrations_directory
     ActiveRecord::Migrator.migrate ActiveRecord::Migrator.migrations_paths
+
+
+    # Run migrations for the test database
+    system "bundle exec rake db:migrate AR_ENV=test" unless ENV['AR_ENV'] == 'test'
   end
 
   desc "rollback your migration--use STEPS=number to step back multiple times"
