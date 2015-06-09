@@ -1,102 +1,97 @@
 require_relative '../spec_helper'
 
-describe Student, "#name and #age" do
+describe Student do
+  describe "attributes" do
+    attributes = [:first_name, :last_name, :birthday, :phone]
 
-  before(:all) do
-    @student = Student.new
-    @student.assign_attributes(
-      :first_name => "Happy",
-      :last_name => "Gilmore",
-      :gender => 'male',
-      :birthday => Date.new(1970,9,1)
-    )
-  end
+    let(:student) { Student.new(first_name: 'Tad', last_name: 'Hall', birthday: Date.new(1991, 04, 18), phone: '419-555-4938') }
 
-  it "has name and age methods" do
-    [:name, :age].each { |mthd| expect(@student).to respond_to mthd }
-  end
+    it "has a readable and writable first name" do
+      expect(student.first_name).to eq 'Tad'
+      student.first_name = 'Drake'
+      expect(student.first_name).to eq 'Drake'
+    end
 
-  it "concatenates first and last name" do
-    expect(@student.name).to eq("Happy Gilmore")
-  end
+    it "has a readable and writable last_name" do
+      expect(student.last_name).to eq 'Hall'
+      student.last_name = 'Zilberschlag'
+      expect(student.last_name).to eq 'Zilberschlag'
+    end
 
-  it "is the right age" do
-    now = Date.today
-    age = now.year - @student.birthday.year - ((now.month > @student.birthday.month || (now.month == @student.birthday.month && now.day >= @student.birthday.day)) ? 0 : 1)
-    expect(@student.age).to eq(age)
-  end
+    it "has a readable and writable birthday" do
+      expect(student.birthday).to eq Date.new(1991, 04, 18)
+      student.birthday = Date.new(1993, 04, 20)
+      expect(student.birthday).to eq Date.new(1993, 04, 20)
+    end
 
-end
+    it "has a readable and writable phone number" do
+      expect(student.phone).to eq '419-555-4938'
+      student.phone = '419-555-3981'
+      expect(student.phone).to eq '419-555-3981'
+    end
 
-describe Student, "basic validations" do
+    describe 'virtual attributes' do
+      describe '#name' do
+        it 'concatenates the first name and the last name' do
+          expect(student.name).to eq 'Tad Hall'
+        end
+      end
 
-  before(:each) do
-    @student = Student.new
-    @student.assign_attributes(
-      :first_name => "Kreay",
-      :last_name => "Shawn",
-      :birthday => Date.new(1989,9,24),
-      :gender => 'female',
-      :email => 'kreayshawn@oaklandhiphop.net',
-      :phone => '(510) 555-1212 x4567'
-    )
-  end
+      describe '#name=' do
+        it 'sets the first name and last name' do
+          expect(student.first_name).to eq 'Tad'
+          expect(student.last_name).to eq 'Hall'
+          student.name = 'Thamir Selby'
+          expect(student.first_name).to eq 'Thamir'
+          expect(student.last_name).to eq 'Selby'
+        end
+      end
 
-  it "accepts valid info" do
-    expect(@student).to be_valid
-  end
+      describe '#age' do
+        context 'has had birthday already this year' do
+          it "correctly calculates the students age based on today's date" do
+            allow(Date).to receive(:today).and_return Date.new(2001, 04, 19)
+            expect(student.age).to eq 10
+          end
+        end
 
-  it "doesn't accept invalid emails" do
-    ["XYZ!bitnet", "@.", "a@b.c"].each do |address|
-      @student.assign_attributes(:email => address)
-      expect(@student).to_not be_valid
+        context 'has not had birthday already this year' do
+          it "correctly calculates the students age based on today's date" do
+            allow(Date).to receive(:today).and_return Date.new(2001, 04, 17)
+            expect(student.age).to eq 9
+          end
+        end
+      end
     end
   end
 
-  it "accepts valid emails" do
-    ["joe@example.com", "info@bbc.co.uk", "bugs@devbootcamp.com"].each do |address|
-      @student.assign_attributes(:email => address)
-      expect(@student).to be_valid
+
+  describe "validations" do
+    let(:student) { Student.new(first_name: 'Shayla', last_name: 'Messerli', birthday: Date.new(1980, 02, 01), phone: '419-555-0987') }
+
+    it "accepts valid info" do
+      expect(student).to be_valid
+    end
+
+    it "only allows students at least three years old" do
+      allow(Date).to receive(:today).and_return Date.new(2003, 01, 01)
+
+      student.birthday = Date.new(2000, 01, 01)
+      expect(student).to be_valid
+
+      student.birthday = Date.new(1999, 12, 31)
+      expect(student).to_not be_valid
+    end
+
+    it "requires phone number to have at least ten digits" do
+      student.phone = '1234567890'
+      expect(student).to be_valid
+
+      student.phone = '123-456-789'
+      expect(student).to_not be_valid
+
+      student.phone = '123456789123456789'
+      expect(student).to be_valid
     end
   end
-
-  it "doesn't accept toddlers" do
-    @student.assign_attributes(:birthday => Date.today - 3.years)
-    expect(@student).to_not be_valid
-  end
-
-  it "doesn't allow two students with the same email" do
-    another_student = Student.create!(
-      :birthday => @student.birthday,
-      :email => @student.email,
-      :phone => @student.phone
-    )
-    expect(@student).to_not be_valid
-  end
-
-end
-
-describe Student, "advanced validations" do
-
-  before(:each) do
-    @student = Student.new
-    @student.assign_attributes(
-      :first_name => "Kreay",
-      :last_name => "Shawn",
-      :birthday => Date.new(1989,9,24),
-      :gender => 'female',
-      :email => 'kreayshawn@oaklandhiphop.net',
-      :phone => '(510) 555-1212 x4567'
-    )
-  end
-
-  it "accepts valid info" do
-    expect(@student).to be_valid
-  end
-
-  it "doesn't accept invalid phone numbers" do
-    @student.assign_attributes(:phone => '347-8901')
-    expect(@student).to_not be_valid
-  end
-
 end
