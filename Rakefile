@@ -67,6 +67,9 @@ namespace :db do
 
     # Run the db:version rake task
     Rake::Task['db:version'].invoke if Rake::Task['db:version']
+
+    # Roll back migrations for the test database
+    system "bundle exec rake db:rollback AR_ENV=test" unless ENV['AR_ENV'] == 'test'
   end
 
 
