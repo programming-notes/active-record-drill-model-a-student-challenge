@@ -2,8 +2,6 @@ require_relative '../spec_helper'
 
 describe Student do
   describe "attributes" do
-    attributes = [:first_name, :last_name, :birthday, :phone]
-
     let(:student) { Student.new(first_name: 'Tad', last_name: 'Hall', birthday: Date.new(1991, 04, 18), phone: '419-555-4938') }
 
     it "has a readable and writable first name" do
