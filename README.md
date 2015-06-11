@@ -24,7 +24,7 @@ hubert.last_name
 hubert.full_name
 # => "Hubert Fried"
 ```
-*Figure 2. Exploring some of the attributes of a student object.
+*Figure 2*. Exploring some of the attributes of a student object.
 
 Active Record models derive their attributes from the tables that store their data.  In the case of the `Student` class we'll be working with, it's attributes will come from the columns in the students table. However, sometimes it would be beneficial for our objects to have attributes that are not backed up by the database.  In the case of our students, in addition to having a first name and a last name, we might want them to have a full name (see Figure 2).  Or, as we can deduce from Figure 1, our students will have a birthday attribute, but we might also want them to have an age.
 
@@ -43,9 +43,21 @@ Before we begin working through the releases in this challenge, let's make sure 
 1. Run Bundler to ensure that the proper gems have been installed.
 2. Use the provided Rake task to create the database.
 
-###Release 0 : Migrations for Schema Creation
+### Release 0: Create the Model and Migration Files
+```text
+$ bundle exec rake generate:model NAME=Student
+$ bundle exec rake generate:migration NAME=create_students
+```
+*Figure 3*. Running rake tasks to create model and migration files.
 
-In the `db/migrate/20121011144238_create_students.rb` file, you should use ActiveRecord migrations to implement the `change` method. This will allow us to do all of our database schema modifications completely from within code (rather than using SQLite and SQL Designer).  Use the Railsguides [Migration Overview](http://guides.rubyonrails.org/v3.2.13/migrations.html) to get used to the syntax.
+The Rakefile for this challenge contains tasks for creating both model and migration files (see Figure 3 for example usage).  Generated model files will be placed in `app/models/`.  Generated migration files will be placed in `db/migrate/`.
+
+Use the provided rake tasks to create a model file for our `Student` class and a migration for creating the students table.
+
+
+### Release 1:
+
+In the `db/migrate/20121011144238_create_students.rb` file, you should use ActiveRecord migrations to implement the `change` method. This will allow us to do all of our database schema modifications completely from within code (rather than using SQLite and SQL Designer).  Use the Railsguides [Migration Overview][RailsGuides on Migrations] to get used to the syntax.
 
 Take a minute to look at how the filename is formatted with the numbers then the snake_cased name. Compare this to the class defined within this file. What is the relationship between the filename and the class name? It turns out this (and other naming conventions) is important to ActiveRecord.
 
@@ -130,3 +142,4 @@ All tests should pass.
 ##Resources
 
 * [Validation Overview](http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html)
+[RailsGuides on Migrations]: http://guides.rubyonrails.org/v3.2.13/migrations.html
