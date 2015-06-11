@@ -59,13 +59,13 @@ describe Student do
     end
 
     describe 'virtual attributes' do
-      describe '#name' do
+      describe '#full_name' do
         it 'concatenates the first name and the last name' do
           expect(student.name).to eq 'Tad Hall'
         end
       end
 
-      describe '#name=' do
+      describe '#full_name=' do
         it 'sets the first name and last name' do
           expect(student.first_name).to eq 'Tad'
           expect(student.last_name).to eq 'Hall'
@@ -112,7 +112,7 @@ describe Student do
       expect(student).to be_valid
     end
 
-    describe 'a valid age'
+    describe 'a valid age' do
       let(:three_years_ago) { Date.today - 3.years }
       let(:more_than_three_years_ago) { three_years_ago - 1.day }
       let(:less_than_three_years_ago) { three_years_ago + 1.day }
@@ -149,6 +149,7 @@ describe Student do
           student.phone = '123456789'
           expect(student).to_not be_valid
         end
+      end
 
       context 'phone number contains not-digit characters' do
         it 'is valid with ten digits' do
@@ -156,7 +157,7 @@ describe Student do
           expect(student).to be_valid
         end
 
-        it 'is invalid with ten characters but less than ten digits'
+        it 'is invalid with ten characters but less than ten digits' do
           student.phone = '-123456789'
           expect(student).to_not be_valid
         end
