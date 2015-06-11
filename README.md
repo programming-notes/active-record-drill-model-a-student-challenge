@@ -54,6 +54,9 @@ The Rakefile for this challenge contains tasks for creating both model and migra
 
 Use the provided rake tasks to create a model file for our `Student` class and a migration for creating the students table.
 
+Take a minute to look at the filenames of the files we've generated.  Compare the filenames to the classes defined within the files. What is the relationship between the filename and the class name? These and other naming conventions are important to ActiveRecord.
+
+
 
 ### Release 1:
 
