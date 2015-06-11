@@ -105,33 +105,62 @@ describe Student do
   end
 
 
-  describe "validations" do
+  describe 'validations' do
     let(:student) { Student.new(first_name: 'Shayla', last_name: 'Messerli', birthday: Date.new(1980, 02, 01), phone: '419-555-0987') }
 
-    it "accepts valid info" do
+    it 'accepts valid info' do
       expect(student).to be_valid
     end
 
-    it "only allows students at least three years old" do
-      three_years_ago = Date.today - 3.years
-      less_than_three_years_ago = three_years_ago + 1.day
+    describe 'a valid age'
+      let(:three_years_ago) { Date.today - 3.years }
+      let(:more_than_three_years_ago) { three_years_ago - 1.day }
+      let(:less_than_three_years_ago) { three_years_ago + 1.day }
 
-      student.birthay = three_years_ago
-      expect(student).to be_valid
+      it 'exactly three-years-old is valid' do
+        student.birthay = three_years_ago
+        expect(student).to be_valid
+      end
 
-      student.birthday = less_than_three_years_ago
-      expect(student).to_not be_valid
+      it 'more than three-years-old is valid' do
+        student.birthday = more_than_three_years_ago
+        expect(student).to be_valid
+      end
+
+      it 'less than three-years-old is invalid' do
+        student.birthday = less_than_three_years_ago
+        expect(student).to_not be_valid
+      end
     end
 
-    it "requires phone number to have at least ten digits" do
-      student.phone = '1234567890'
-      expect(student).to be_valid
+    describe "a valid phone number" do
+      context 'phone number contains only digits' do
+        it 'is valid with ten digits' do
+          student.phone = '1234567890'
+          expect(student).to be_valid
+        end
 
-      student.phone = '123-456-789'
-      expect(student).to_not be_valid
+        it 'is valid with more than ten digits' do
+          student.phone = '123456789123456789'
+          expect(student).to be_valid
+        end
 
-      student.phone = '123456789123456789'
-      expect(student).to be_valid
+        it 'is invalid with less than ten digits' do
+          student.phone = '123456789'
+          expect(student).to_not be_valid
+        end
+
+      context 'phone number contains not-digit characters' do
+        it 'is valid with ten digits' do
+          student.phone = '123-456-7890'
+          expect(student).to be_valid
+        end
+
+        it 'is invalid with ten characters but less than ten digits'
+          student.phone = '-123456789'
+          expect(student).to_not be_valid
+        end
+      end
     end
   end
 end
