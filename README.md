@@ -57,28 +57,22 @@ Use the provided rake tasks to create a model file for our `Student` class and a
 Take a minute to look at the filenames of the files we've generated.  Compare the filenames to the classes defined within the files. What is the relationship between the filename and the class name? These and other naming conventions are important to ActiveRecord.
 
 
+### Release 1: The Students Table
+In *Release 0* we created an empty migration file for creating a students table in our database.  In this release, we're going to write and run the migration to create a students table.
 
-### Release 1:
+We won't normally test our database's schema, but as we're still learning to write migrations, some tests have been provided to make sure that we do actually create a students table and that the table has the correct columns of the correct type.  For example, the table should have a string-type column named `first_name`.
 
-In the `db/migrate/20121011144238_create_students.rb` file, you should use ActiveRecord migrations to implement the `change` method. This will allow us to do all of our database schema modifications completely from within code (rather than using SQLite and SQL Designer).  Use the Railsguides [Migration Overview][RailsGuides on Migrations] to get used to the syntax.
+1. Let's take a quick look at our student model.  We have some tests written for the `Student` class in `spec/models/student_spec.rb`.  Run the tests for the student model to see them fail. In particular, note the failing tests for the attributes.
 
-Take a minute to look at how the filename is formatted with the numbers then the snake_cased name. Compare this to the class defined within this file. What is the relationship between the filename and the class name? It turns out this (and other naming conventions) is important to ActiveRecord.
+2. Tests for the students table are provided in `spec/schema/students_table_spec.rb`.  Run the tests to see them fail.  The failing tests will describe the expected columns and their types.
 
-#### Test Your Code
+3. Update the migration that we created in *Release 0* to create the students table ([migration overview][RailsGuides on Migrations]).
 
-Run your migrations using the following command:
+4. Run the migration using the `db:migrate` Rake task.
 
-```bash
-$ rake db:migrate
-```
+5. Run the tests for the students table again.  If any of the tests fail, don't drop the database, rather take the opportunity to write a new migration to edit the table—remember to run the new migrations. Continue until all the tests in `spec/schema/students_table_spec.rb` pass.
 
-Before submitting this challenge, you must test your code by using the following command:
-
-```bash
-$ rspec spec/migrate_create_table_spec.rb
-```
-
-All tests should pass.  If the output of the test is confusing, take a look under the hood.  How does the spec file test for expectations?  This is very similar to ruby, see if you can figure it out.
+6. Once our students table is created, let's return to our `Student` model.  Run the tests in `spec/models/student_spec.rb` again.  Before we created our students table, all of the tests were failing.  Now that the students table has been created, some are passing.  Before moving on, be sure that you can explain why the passing tests pass and the failing tests fail.
 
 ###Release 1 : Your First Object-Relational Model
 
