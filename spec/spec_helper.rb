@@ -14,12 +14,6 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:all) do
-    if ActiveRecord::Migrator.current_version == 0
-      raise RuntimeError, "Be sure to run 'rake db:migrate' before running these specs."
-    end
-  end
-
   config.before(:each) { DatabaseCleaner.start }
   config.after(:each)  { DatabaseCleaner.clean }
 end
