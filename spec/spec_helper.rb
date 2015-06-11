@@ -2,6 +2,7 @@ ENV['AR_ENV'] = 'test'
 
 require_relative '../config/environment'
 
+require 'rspec'
 require 'database_cleaner'
 
 

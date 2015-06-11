@@ -1,6 +1,5 @@
 # Requre gems and Ruby libraries
 require "active_record"
-require "rspec"
 require "rake"
 require "sqlite3"
 require "pathname"
