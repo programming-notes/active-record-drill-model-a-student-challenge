@@ -1,44 +1,47 @@
-# Db Drill AR Student Schema 
+# Active Record Drill: Model a Student
  
 ##Summary 
-We're going to continue working with Active Record. Part of this challenge will review the relationship between the tables in our database and our Ruby classes.  We'll also work with *virtual attributes*.
-
 
 | id | first_name | last_name | birthday | phone | created_at | updated_at |
 | --- | --- | --- | --- | --- | --- | --- |
 |1 | Hubert | Fried | 1980-04-20 | 419-531-8916 | 2015-03-27 12:00:00 | 2015-03-27 12:00:00 |
-|2 | Amie | Granger | 1980-03-01 | 312-456-9827 | 2015-03-29 13:30:00 | 2015-03-30 17:45:00 |
+|2 | Nanny | Lamar | 1980-03-01 | 312-456-9827 | 2015-03-29 13:30:00 | 2015-03-30 17:45:00 |
 
 *Figure 1*.  Depiction of a students table.
 
-We'll be working with student data in this challenge.  We'll start by setting up a database with a `students` table (see Figure 1) and a `Student` model.  Once the table is set up, we'll seed it with some data.  And finally, we'll add some functionality to the `Student` model.
+We're going to continue working with Active Record by modeling a student.  We'll build a `Student` class and back up the data for students in the students table of a database (see Figure 1). Working through this challenge will review and reinforce our understanding of Active Record: the relationship between the tables in our database and our Ruby classes, creating tables through Active Record migrations, and writing custom validation methods.  We'll also work with *virtual attributes*.
 
 ### Virtual Attributes
 ```ruby
 hubert = Student.find(1)
+
 hubert.first_name
 # => "Hubert"
+
 hubert.last_name
 # => "Fried"
+
+hubert.full_name
+# => "Hubert Fried"
 ```
 *Figure 2. Exploring some of the attributes of a student object.
 
-Active Record models derive their attributes from the tables that store their data.  In the case of the `Student` class we'll be working with, it's attributes will come from the columns in the students table (see Figure 2). However, sometimes it would be beneficial for our objects to have attributes that are not backed up by the database.  In the case of our students, we might want them to have a full name in addition to having a first name and a last name.  Or, as we can see in Figure 1, our students will have a birthday attribute, but we might also want them to have an age.
+Active Record models derive their attributes from the tables that store their data.  In the case of the `Student` class we'll be working with, it's attributes will come from the columns in the students table. However, sometimes it would be beneficial for our objects to have attributes that are not backed up by the database.  In the case of our students, in addition to having a first name and a last name, we might want them to have a full name (see Figure 2).  Or, as we can deduce from Figure 1, our students will have a birthday attribute, but we might also want them to have an age.
 
-There's nothing really special about *virtual attributes*.  They are simply behaviors that our objects have.  To access them, we write *getter methods*, such as `#full_name` or `#age`.  They differ from normal attributes in that their values are not persisted in the database. Rather, they are derived from values in the database.  For example, getting a student's full name requires combining the first and last names.  Calculating the age requires some math using the student's birthday.  Setting virtual attributes is less straight forward, but it can often be done.  And to do so, we write *setter methods*, such as `#full_name=`. 
+Virtual attributes differ from normal attributes in that their values are not persisted in the database. Rather, they are derived from other values in the database.  For example, getting a student's full name requires combining the first and last names.  Calculating the age requires some math using the student's birthday.  To access them, we write *getter methods*, such as `#full_name` or `#age`.
+
+Setting virtual attributes can be less straight forward.  To do so, we write *setter methods*, such as `#full_name=`. What would a full name setter method do?  If we set a student's full name, would it make sense for the student's first and last names to be updated?  What would an `#age=` setter method do?  Would it be possible to derive someone's birthday from their age in years?
 
 We'll explore working with virtual attributes as we work through this challenge. 
 
 
-
-#### Before You Begin
-
-* Open the `ar-student-schema` directory in the source directory. 
-2. Install the necessary dependencies using Bundler: `$ bundle`
-3. Create your database: `$ rake db:create`  **(This is important!)**
-
-
 ##Releases
+
+### Pre-release: Bundle and Create the Datbase
+Before we begin working through the releases in this challenge, let's make sure that all the gems we'll be using have been installed and then create the database that we'll be working with.  
+
+1. Run Bundler to ensure that the proper gems have been installed.
+2. Use the provided Rake task to create the database.
 
 ###Release 0 : Migrations for Schema Creation
 
