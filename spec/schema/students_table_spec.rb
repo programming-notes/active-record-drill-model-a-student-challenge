@@ -13,7 +13,11 @@ describe 'students table' do
     :datetime => ['created_at', 'updated_at']
   }
 
-  actual_columns = ActiveRecord::Base.connection.columns(:students)
+  begin
+    actual_columns = ActiveRecord::Base.connection.columns(:students)
+  rescue
+    actual_columns = []
+  end
 
   expected_column_types_and_names.each do |expected_type, expected_column_names|
     expected_column_names.each do |expected_column_name|
