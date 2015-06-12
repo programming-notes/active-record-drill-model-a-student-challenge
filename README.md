@@ -66,7 +66,7 @@ We won't normally test our database's schema, but as we're still learning to wri
 
 2. Tests for the students table are provided in `spec/schema/students_table_spec.rb`.  Run the tests to see them fail.  The failing tests will describe the expected columns and their types.
 
-3. Update the migration that we created in *Release 0* to create the students table ([migration overview][RailsGuides on Migrations]).
+3. Update the migration that we created in *Release 0* to create the students table ([migration overview][RailsGuides on Migrations]). Should we have any constraints on our table?  Columns that should not allow `null` values?  Columns that should be indexed?
 
 4. Run the migration using the `db:migrate` Rake task.
 
