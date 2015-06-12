@@ -72,7 +72,13 @@ We won't normally test our database's schema, but as we're still learning to wri
 
 5. Run the tests for the students table again.  If any of the tests fail, don't drop the database, rather take the opportunity to write a new migration to edit the table—remember to run the new migrations. Continue until all the tests in `spec/schema/students_table_spec.rb` pass.
 
-6. Once our students table is created, let's return to our `Student` model.  Run the tests in `spec/models/student_spec.rb` again.  Before we created our students table, all of the tests were failing.  Now that the students table has been created, some are passing.  Before moving on, be sure that you can explain why the passing tests pass and the failing tests fail.
+6. Once our students table is created, let's return to our `Student` model.  Run the tests in `spec/models/student_spec.rb` again.  Look at the tests organized under *attributes*.  Before we created our students table, all of these attribute tests were failing.  Now that the students table has been created with the appropriate columns, the attribute tests pass.  Before moving on, be sure that you can explain why these attribute tests pass.
+
+
+
+
+
+
 
 ###Release 1 : Your First Object-Relational Model
 
