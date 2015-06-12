@@ -61,17 +61,25 @@ describe Student do
     describe 'virtual attributes' do
       describe '#full_name' do
         it 'concatenates the first name and the last name' do
-          expect(student.name).to eq 'Tad Hall'
+          expect(student.full_name).to eq 'Tad Hall'
         end
       end
 
       describe '#full_name=' do
-        it 'sets the first name and last name' do
-          expect(student.first_name).to eq 'Tad'
-          expect(student.last_name).to eq 'Hall'
-          student.name = 'Thamir Selby'
-          expect(student.first_name).to eq 'Thamir'
-          expect(student.last_name).to eq 'Selby'
+        context 'a first and last name given' do
+          it 'sets the first name and last name' do
+            student.full_name = 'Thamir Selby'
+            expect(student.first_name).to eq 'Thamir'
+            expect(student.last_name).to eq 'Selby'
+          end
+        end
+
+        context 'a first, middle, and last name given' do
+          it 'includes the middle name in the first name' do
+            student.full_name = 'Philipa Kriemhilde Fay'
+            expect(student.first_name).to eq 'Philipa Kriemhilde'
+            expect(student.last_name).to eq 'Fay'
+          end
         end
       end
 
@@ -112,24 +120,44 @@ describe Student do
       expect(student).to be_valid
     end
 
+    it 'is invalid without a first_name' do
+      student = Student.new(last_name: 'Dane', birthday: Date.new(1980, 02, 01), phone: '419-555-0987')
+      expect(student).to be_invalid
+    end
+
+    it 'is invalid without a last_name' do
+      student = Student.new(first_name: 'Dollie', birthday: Date.new(1980, 02, 01), phone: '419-555-0987')
+      expect(student).to be_invalid
+    end
+
+    it 'is invalid without a birthday' do
+      student = Student.new(first_name: 'Andile', last_name: 'Sachs', phone: '419-555-0987')
+      expect(student).to be_invalid
+    end
+
+    it 'is invalid without a phone number' do
+      student = Student.new(first_name: 'Ryker', last_name: 'Rowe', birthday: Date.new(1980, 02, 01))
+      expect(student).to be_invalid
+    end
+
     describe 'a valid age' do
-      let(:three_years_ago) { Date.today - 3.years }
-      let(:more_than_three_years_ago) { three_years_ago - 1.day }
-      let(:less_than_three_years_ago) { three_years_ago + 1.day }
+      let(:five_years_ago) { Date.today - 5.years }
+      let(:more_than_five_years_ago) { five_years_ago - 1.day }
+      let(:less_than_five_years_ago) { five_years_ago + 1.day }
 
-      it 'exactly three-years-old is valid' do
-        student.birthay = three_years_ago
+      it 'exactly five-years-old is valid' do
+        student.birthay = five_years_ago
         expect(student).to be_valid
       end
 
-      it 'more than three-years-old is valid' do
-        student.birthday = more_than_three_years_ago
+      it 'more than five-years-old is valid' do
+        student.birthday = more_than_five_years_ago
         expect(student).to be_valid
       end
 
-      it 'less than three-years-old is invalid' do
-        student.birthday = less_than_three_years_ago
-        expect(student).to_not be_valid
+      it 'less than five-years-old is invalid' do
+        student.birthday = less_than_five_years_ago
+        expect(student).to be_invalid
       end
     end
 
@@ -147,7 +175,7 @@ describe Student do
 
         it 'is invalid with less than ten digits' do
           student.phone = '123456789'
-          expect(student).to_not be_valid
+          expect(student).to be_invalid
         end
       end
 
@@ -159,7 +187,7 @@ describe Student do
 
         it 'is invalid with ten characters but less than ten digits' do
           student.phone = '-123456789'
-          expect(student).to_not be_valid
+          expect(student).to be_invalid
         end
       end
     end
