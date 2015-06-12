@@ -146,7 +146,7 @@ describe Student do
       let(:less_than_five_years_ago) { five_years_ago + 1.day }
 
       it 'exactly five-years-old is valid' do
-        student.birthay = five_years_ago
+        student.birthday = five_years_ago
         expect(student).to be_valid
       end
 

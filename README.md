@@ -75,74 +75,29 @@ We won't normally test our database's schema, but as we're still learning to wri
 6. Once our students table is created, let's return to our `Student` model.  Run the tests in `spec/models/student_spec.rb` again.  Look at the tests organized under *attributes*.  Before we created our students table, all of these attribute tests were failing.  Now that the students table has been created with the appropriate columns, the attribute tests pass.  Before moving on, be sure that you can explain why these attribute tests pass.
 
 
+### Release 2: Virtual Attributes
+In the *Summary* we discussed virtual attributes—specifically, students having a full name and an age.  Now let's add these behaviors to our `Student` model.  We'll need to write both *getter* and *setter* methods (e.g., `#full_name` and `#full_name=`).
 
-
-
-
-
-###Release 1 : Your First Object-Relational Model
-
-Create a class called `Student` (in the `app/models/student.rb` file) that meets the following requirements:
-
-#### User Stories
-
-1. Given a `Student` model object, I should be able to easily retrieve her full name via a `name` method.
-2. Given a `Student` model object, I should be able to easily know her age (in years) via an `age` method.
-
-Don't overcomplicate this!  From this user story, we can infer that `student.name` would likely be the syntax to access the `name` method. 
-What can we infer is needed in the `Student` Class?
-
-#### Test Your Code
-
-Before submitting this challenge, you must test your code by using the following command:
-
-```bash
-$ rspec spec/student_spec.rb -e "#name and #age"
 ```
-
-All tests should pass.
-
-###Release 2 : Validation Magic
-
-Add validations to the `Student` model so that a student cannot be saved unless the following requirements are met:
-
-1. Email addresses must contain at least one `@` character and one `.` character, with at least one character before the `@`, one character between the `@` and first `.`, and at least two characters after the final `.`.
-2. Email addresses must be unique across all students.
-3. Students must be at least `5` years old.
-
-A great resource for validations is the Railsguides [Validation Overview](http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html), don't forget to use google too!
-
-#### Test Your Code
-
-Before submitting this challenge, you must test your code by using the following command:
-
-```bash
-$ rspec spec/student_spec.rb -e "basic validations"
+$ bundle exec rspec --example "virtual attributes" spec/models/student.rb
 ```
+*Figure 4*. Running tests that have a specific description in a specific file.
 
-All tests should pass.
+Tests are provided in `spec/models/student.rb`.  These particular tests are in an example group with the description `"virtual attributes"`.  We can use this description to run just these tests (see Figure 4).
 
 
-###Release 2 : More Advanced Validations
+###Release 3: Validations
+In order to help protect the integrity of our database (i.e., keep bad data out of it), we're going to add some validations to our `Student` model.  We'll use a combination of the built-in [validation helpers][Validation Helpers] and [custom validation methods][Custom Validation Methods].
 
-Add another validation to the `Student` model so that a student cannot be saved unless the following requirement is met:
+The validation tests are in an example group with the description `"validations"`.  Run these tests.  We'll see that some of the tests are passing and some are failing.  We haven't written any validations.  Why are some tests passing and others failing?  Right now, could any student be invalid?
 
-Phone numbers must contain at least 10 digits, _excluding_ non-numeric characters.
+Now it's time to actually add our validations.  Read through the validation specs to see what they expect, and then add the necessary validations to the `Student` model.  When you're done, all of the tests in the `"validations"` example group should pass.
 
-#### Test Your Code
-
-Before submitting this challenge, you must test your code by using the following command:
-
-```bash
-$ rspec spec/student_spec.rb -e "advanced validations"
-```
-
-All tests should pass. 
 
 
 ##Optimize Your Learning 
 
 ##Resources
-
-* [Validation Overview](http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html)
+[Custom Validation Methods]: http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html#custom-methods
+[Validation Helpers]: http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html#validation-helpers
 [RailsGuides on Migrations]: http://guides.rubyonrails.org/v3.2.13/migrations.html
