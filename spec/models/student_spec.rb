@@ -142,7 +142,7 @@ describe Student do
 
     describe 'a valid age' do
       let(:five_years_ago) { Date.today - 5.years }
-      let(:more_than_five_years_ago) { five_years_ago - 1.day }
+      let(:six_years_ago) { Date.today - 6.years }
       let(:less_than_five_years_ago) { five_years_ago + 1.day }
 
       it 'exactly five-years-old is valid' do
@@ -151,7 +151,7 @@ describe Student do
       end
 
       it 'more than five-years-old is valid' do
-        student.birthday = more_than_five_years_ago
+        student.birthday = six_years_ago
         expect(student).to be_valid
       end
 
