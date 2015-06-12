@@ -86,7 +86,7 @@ $ bundle exec rspec --example "virtual attributes" spec/models/student.rb
 Tests are provided in `spec/models/student.rb`.  These particular tests are in an example group with the description `"virtual attributes"`.  We can use this description to run just these tests (see Figure 4).
 
 
-###Release 3: Validations
+### Release 3: Validations
 In order to help protect the integrity of our database (i.e., keep bad data out of it), we're going to add some validations to our `Student` model.  We'll use a combination of the built-in [validation helpers][Validation Helpers] and [custom validation methods][Custom Validation Methods].
 
 The validation tests are in an example group with the description `"validations"`.  Run these tests.  We'll see that some of the tests are passing and some are failing.  We haven't written any validations.  Why are some tests passing and others failing?  Right now, could any student be invalid?
