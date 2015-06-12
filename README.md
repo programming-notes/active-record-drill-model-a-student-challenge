@@ -43,6 +43,7 @@ Before we begin working through the releases in this challenge, let's make sure 
 1. Run Bundler to ensure that the proper gems have been installed.
 2. Use the provided Rake task to create the database.
 
+
 ### Release 0: Create the Model and Migration Files
 ```text
 $ bundle exec rake generate:model NAME=Student
@@ -91,13 +92,17 @@ In order to help protect the integrity of our database (i.e., keep bad data out 
 
 The validation tests are in an example group with the description `"validations"`.  Run these tests.  We'll see that some of the tests are passing and some are failing.  We haven't written any validations.  Why are some tests passing and others failing?  Right now, could any student be invalid?
 
-Now it's time to actually add our validations.  Read through the validation specs to see what they expect, and then add the necessary validations to the `Student` model.  When you're done, all of the tests in the `"validations"` example group should pass.
+Now it's time to actually add our validations.  Read through the validation specs to see what they expect, and then add the necessary validations to the `Student` model.  When we're done, all of the tests in the `"validations"` example group should pass.
+
+Run all the tests for the `Student` class; they should all be passing.
 
 
+## Conclusion
+As we read in the *Summary*, this challenge was another opportunity for us to work with defining a model and backing up its data in a database.  Before tackling the next challenge, be sure to understand the relationship between database tables and Active Record models—specifically, the behaviors that the model derives from the table.
 
-##Optimize Your Learning 
+In addition, we should be comfortable working with ActiveRecord validations—both using the validation helpers and writing our own custom methods.  In Active Record how are objects marked as invalid?  How do custom validators mark objects as invalid?
 
-##Resources
+
 [Custom Validation Methods]: http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html#custom-methods
 [Validation Helpers]: http://guides.rubyonrails.org/v3.2.13/active_record_validations_callbacks.html#validation-helpers
 [RailsGuides on Migrations]: http://guides.rubyonrails.org/v3.2.13/migrations.html
