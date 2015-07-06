@@ -5,8 +5,8 @@ require 'active_support/core_ext'
 # Require the files in APP_ROOT/lib
 lib_files = Dir[APP_ROOT.join('lib', '*.rb')]
 
-lib_files.each do |model_file|
-  require model_file
+lib_files.each do |file|
+  require file
 end
 
 
@@ -47,6 +47,9 @@ namespace :db do
 
   desc "Migrate the database"
   task :migrate do
+    # Run migrations for the test database in a separate thread
+    test_thread = ENV['AR_ENV'] == 'test' ? nil : Thread.new { `bundle exec rake db:migrate AR_ENV=test` }
+
     # Ensure that we see the output when running migrations
     ActiveRecord::Migration.verbose = ENV["VERBOSE"] ? ENV["VERBOSE"] == "true" : true
 
@@ -55,21 +58,24 @@ namespace :db do
     ActiveRecord::Migrator.migrations_paths << migrations_directory
     ActiveRecord::Migrator.migrate ActiveRecord::Migrator.migrations_paths
 
-
-    # Run migrations for the test database
-    system "bundle exec rake db:migrate AR_ENV=test" unless ENV['AR_ENV'] == 'test'
+    # Allow test thread to finish
+    test_thread.join if test_thread
   end
 
-  desc "rollback your migration--use STEPS=number to step back multiple times"
+  desc "rollback your migration--use STEP=number to step back multiple times"
   task :rollback do
-    number_of_steps = (ENV['STEPS'] || 1).to_i
+    number_of_steps = (ENV['STEP'] || 1).to_i
+
+    # Rollback the test database in a separate thread
+    test_thread = ENV['AR_ENV'] == 'test' ? nil : Thread.new { `bundle exec rake db:rollback STEP=#{number_of_steps} AR_ENV=test` }
+
     ActiveRecord::Migrator.rollback('db/migrate', number_of_steps)
 
     # Run the db:version rake task
     Rake::Task['db:version'].invoke if Rake::Task['db:version']
 
-    # Roll back migrations for the test database
-    system "bundle exec rake db:rollback AR_ENV=test" unless ENV['AR_ENV'] == 'test'
+    # Allow test thread to finish
+    test_thread.join if test_thread
   end
 
 
