@@ -1,6 +1,6 @@
 # Active Record Drill: Model a Student
- 
-##Summary 
+
+##Summary
 
 | id | first_name | last_name | birthday | phone | created_at | updated_at |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -26,19 +26,19 @@ hubert.full_name
 ```
 *Figure 2*. Exploring some of the attributes of a student object.
 
-Active Record models derive their attributes from the tables that store their data.  In the case of the `Student` class we'll be working with, it's attributes will come from the columns in the students table. However, sometimes it would be beneficial for our objects to have attributes that are not backed up by the database.  In the case of our students, in addition to having a first name and a last name, we might want them to have a full name (see Figure 2).  Or, as we can deduce from Figure 1, our students will have a birthday attribute, but we might also want them to have an age.
+Active Record models derive their attributes from the tables that store their data.  In the case of the `Student` class we'll be working with, its attributes will come from the columns in the students table. However, sometimes it would be beneficial for our objects to have attributes that are not backed up by the database.  In the case of our students, in addition to having a first name and a last name, we might want them to have a full name (see Figure 2).  Or, as we can deduce from Figure 1, our students will have a birthday attribute, but we might also want them to have an age.
 
 Virtual attributes differ from normal attributes in that their values are not persisted in the database. Rather, they are derived from other values in the database.  For example, getting a student's full name requires combining the first and last names.  Calculating the age requires some math using the student's birthday.  To access them, we write *getter methods*, such as `#full_name` or `#age`.
 
 Setting virtual attributes can be less straight forward.  To do so, we write *setter methods*, such as `#full_name=`. What would a full name setter method do?  If we set a student's full name, would it make sense for the student's first and last names to be updated?  What would an `#age=` setter method do?  Would it be possible to derive someone's birthday from their age in years?
 
-We'll explore working with virtual attributes as we work through this challenge. 
+We'll explore working with virtual attributes as we work through this challenge.
 
 
 ##Releases
 
 ### Pre-release: Bundle and Create the Datbase
-Before we begin working through the releases in this challenge, let's make sure that all the gems we'll be using have been installed and then create the database that we'll be working with.  
+Before we begin working through the releases in this challenge, let's make sure that all the gems we'll be using have been installed and then create the database that we'll be working with.
 
 1. Run Bundler to ensure that the proper gems have been installed.
 2. Use the provided Rake task to create the database.
@@ -80,11 +80,11 @@ We won't normally test our database's schema, but as we're still learning to wri
 In the *Summary* we discussed virtual attributes—specifically, students having a full name and an age.  Now let's add these behaviors to our `Student` model.  We'll need to write both *getter* and *setter* methods (e.g., `#full_name` and `#full_name=`).
 
 ```
-$ bundle exec rspec --example "virtual attributes" spec/models/student.rb
+$ bundle exec rspec --example "virtual attributes" spec/models/student_spec.rb
 ```
 *Figure 4*. Running tests that have a specific description in a specific file.
 
-Tests are provided in `spec/models/student.rb`.  These particular tests are in an example group with the description `"virtual attributes"`.  We can use this description to run just these tests (see Figure 4).
+Tests are provided in `spec/models/student_spec.rb`.  These particular tests are in an example group with the description `"virtual attributes"`.  We can use this description to run just these tests (see Figure 4).
 
 
 ### Release 3: Validations
