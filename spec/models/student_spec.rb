@@ -89,14 +89,14 @@ describe Student do
         let(:one_day_shy_of_ten_years_ago) { ten_years_ago + 1.day }
 
         context 'has birthday today' do
-          it 'correctly calculates the students age' do
+          it 'correctly calculates the student\'s age' do
             student = Student.new(birthday: ten_years_ago)
             expect(student.age).to eq 10
           end
         end
 
         context 'had a birthday yesterday' do
-          it 'correctly calculates the students age' do
+          it 'correctly calculates the student\'s age' do
             student = Student.new(birthday: ten_years_and_one_day_ago)
             expect(student.age).to eq 10
           end
