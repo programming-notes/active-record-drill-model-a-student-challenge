@@ -37,7 +37,7 @@ We'll explore working with virtual attributes as we work through this challenge.
 
 ##Releases
 
-### Pre-release: Bundle and Create the Datbase
+### Pre-release: Bundle and Create the Database
 Before we begin working through the releases in this challenge, let's make sure that all the gems we'll be using have been installed and then create the database that we'll be working with.
 
 1. Run Bundler to ensure that the proper gems have been installed.
